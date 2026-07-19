@@ -1,0 +1,70 @@
+{
+  "sucesso": true,
+  "totalArquivos": 8,
+  "arquivos": [
+    {
+      "nome": "Aula 04 - JavaScript Condicionais Decisões Computacionais_compressed.pdf",
+      "id": "1GV9oYhRViEKtNGy70IoJ2XN6fzvjZuT7",
+      "url": "https://drive.google.com/file/d/1GV9oYhRViEKtNGy70IoJ2XN6fzvjZuT7/view?usp=drivesdk",
+      "tamanho": 1399476,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-17T12:26:02.567Z"
+    },
+    {
+      "nome": "Aula 03 - JavaScript Operadores e Conversão Inicial_compressed.pdf",
+      "id": "1irpURVNL_zAc53znE0jwMmszanrAd4xQ",
+      "url": "https://drive.google.com/file/d/1irpURVNL_zAc53znE0jwMmszanrAd4xQ/view?usp=drivesdk",
+      "tamanho": 1102041,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-13T12:48:08.745Z"
+    },
+    {
+      "nome": "Profissões Digitais e Oportunidades Tech.pdf",
+      "id": "1fuOX1ATSA_nt8enl4hWA2UH6Nj-M7vQu",
+      "url": "https://drive.google.com/file/d/1fuOX1ATSA_nt8enl4hWA2UH6Nj-M7vQu/view?usp=drivesdk",
+      "tamanho": 12790000,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:42.435Z"
+    },
+    {
+      "nome": "Fundamentos de Computação Hardware, Software e SOes.pdf",
+      "id": "1GxuNQyggyIP0TDsniZmsLFF49uVJiRYi",
+      "url": "https://drive.google.com/file/d/1GxuNQyggyIP0TDsniZmsLFF49uVJiRYi/view?usp=drivesdk",
+      "tamanho": 29408556,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:26.610Z"
+    },
+    {
+      "nome": "Primeiros Passos Web com HTML, VSCode e CSS.pdf",
+      "id": "10JjgjJbPuG-s3EKxOIsBtZzvnB2u9_Vq",
+      "url": "https://drive.google.com/file/d/10JjgjJbPuG-s3EKxOIsBtZzvnB2u9_Vq/view?usp=drivesdk",
+      "tamanho": 28879723,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:13.725Z"
+    },
+    {
+      "nome": "Introdução ao CSS e Página Pessoal Moderno.pdf",
+      "id": "11AvdRze04VcO3-utGboKWVDECl0GV73k",
+      "url": "https://drive.google.com/file/d/11AvdRze04VcO3-utGboKWVDECl0GV73k/view?usp=drivesdk",
+      "tamanho": 35106961,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:57.104Z"
+    },
+    {
+      "nome": "Aula 1 Introdução ao JavaScript e Primeiros Passos (1).pdf",
+      "id": "1zx_4IEOb7OWkhp-oSxAJCjcOs1s0rWNO",
+      "url": "https://drive.google.com/file/d/1zx_4IEOb7OWkhp-oSxAJCjcOs1s0rWNO/view?usp=drivesdk",
+      "tamanho": 4269557,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:30.697Z"
+    },
+    {
+      "nome": "Aula 2 Variáveis, Dados e Entrada JS.pdf",
+      "id": "1i-RF_RzdR-449zS_lOUhoC7rB-NcbvAp",
+      "url": "https://drive.google.com/file/d/1i-RF_RzdR-449zS_lOUhoC7rB-NcbvAp/view?usp=drivesdk",
+      "tamanho": 8198917,
+      "tipoMime": "application/pdf",
+      "dataCriacao": "2026-07-09T12:06:35.530Z"
+    }
+  ]
+}
