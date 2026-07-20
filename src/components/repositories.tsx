@@ -1,5 +1,5 @@
 import { Root } from "@/@types";
-import { getGithubRepositories } from "@/services/api";
+import { getGithubRepository } from "@/services/api";
 import { GitBranch, GitFork, Eye, CircleDot, ArrowRight } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -16,13 +16,7 @@ function GithubIcon({ className }: { className?: string }) {
 }
 
 export async function Repositories() {
-  const repositories: Root = await getGithubRepositories();
-
-  const courseRepository = repositories.find(
-    (repository) => repository.name === "curso-desenvolvedor-de-app",
-  );
-
-  console.log(courseRepository);
+  const repository: Root = await getGithubRepository();
 
   return (
     <section className="relative py-16 lg:py-24" id="codigos">
@@ -50,7 +44,7 @@ export async function Repositories() {
                       curso-apps-midias-digitais
                     </h3>
                     <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
-                      {!courseRepository?.private && "Público"}
+                      {!repository?.private && "Público"}
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -67,7 +61,7 @@ export async function Repositories() {
                   aria-hidden="true"
                 />
                 <span className="font-heading text-sm font-bold text-card-foreground">
-                  {courseRepository?.forks_count}
+                  {repository?.forks_count}
                 </span>
                 <span className="text-sm text-muted-foreground">Forks</span>
               </div>
@@ -77,7 +71,7 @@ export async function Repositories() {
                   aria-hidden="true"
                 />
                 <span className="font-heading text-sm font-bold text-card-foreground">
-                  {courseRepository?.watchers}
+                  {repository?.watchers}
                 </span>
                 <span className="text-sm text-muted-foreground">Watchers</span>
               </div>
@@ -87,7 +81,7 @@ export async function Repositories() {
                   aria-hidden="true"
                 />
                 <span className="font-heading text-sm font-bold text-card-foreground">
-                  {courseRepository?.open_issues}
+                  {repository?.open_issues}
                 </span>
                 <span className="text-sm text-muted-foreground">Issues</span>
               </div>
@@ -100,14 +94,14 @@ export async function Repositories() {
               </div>
               <div className="flex items-center gap-3 rounded-lg border border-border/60 bg-card px-4 py-3">
                 <code className="flex-1 overflow-x-auto font-mono text-sm text-card-foreground">
-                  git clone {courseRepository?.html_url}
+                  git clone {repository?.html_url}
                 </code>
               </div>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
-                href={courseRepository?.html_url}
+                href={repository?.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-heading text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"

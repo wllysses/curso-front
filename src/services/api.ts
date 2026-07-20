@@ -4,8 +4,10 @@ export async function getGoogleDriveData() {
   return data;
 }
 
-export async function getGithubRepositories() {
-  const response = await fetch(process.env.NEXT_PUBLIC_GITHUB_API_URL!);
+export async function getGithubRepository() {
+  const response = await fetch(
+    "https://api.github.com/repos/wllysses/curso-desenvolvedor-de-app",
+  );
   const data = await response.json();
   return data;
 }

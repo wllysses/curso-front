@@ -8,16 +8,16 @@ export function Hero() {
         <SparklesIcon className="h-4 w-4" aria-hidden="true" />
         Em andamento
       </span>
-      <h2 className="max-w-3xl mx-auto font-bold text-6xl text-center bg-linear-to-r from-slate-50 to-green-400 bg-clip-text text-transparent">
+      <h2 className="max-w-3xl mx-auto font-bold text-6xl text-center bg-linear-to-r from-slate-50 to-green-400 bg-clip-text text-transparent max-md:text-4xl max-sm:text-2xl">
         Curso de Desenvolvedor de Aplicativos para Mídias Digitais
       </h2>
-      <p className="max-w-2xl mx-auto text-center">
-        Aprenda a criar aplicativos móveis e experiências digitais do zero. Uma
-        formação prática, gratuita e certificada para preparar você para o
-        mercado de tecnologia da Paraíba e de todo o Brasil.
+      <p className="max-w-2xl mx-auto text-center max-sm:text-xs">
+        Aprenda a criar aplicações e experiências digitais do zero. Uma formação
+        prática, gratuita e certificada para preparar você para o mercado de
+        tecnologia da Paraíba e de todo o Brasil.
       </p>
 
-      <div className="flex items-center justify-center gap-4 mt-4">
+      <div className="flex items-center justify-center gap-4 mt-4 flex-wrap">
         <Badge className="p-4 text-sm">
           {" "}
           <CheckCircleIcon /> 100% gratuito

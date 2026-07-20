@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <>
       <header className="border-b p-4">
-        <div className="container mx-auto flex items-center justify-around">
+        <div className="container mx-auto flex items-center justify-around flex-wrap max-sm:gap-6">
           <Link href="/" className="flex items-center gap-2">
             <div className="bg-primary p-2 rounded size-8 text-white flex items-center justify-center">
               <CodeXmlIcon />

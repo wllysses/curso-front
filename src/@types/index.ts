@@ -1,6 +1,4 @@
-export type Root = Root2[];
-
-export interface Root2 {
+export interface Root {
   id: number;
   node_id: string;
   name: string;
@@ -8,7 +6,6 @@ export interface Root2 {
   private: boolean;
   owner: Owner;
   html_url: string;
-  description?: string;
   fork: boolean;
   url: string;
   forks_url: string;
@@ -54,7 +51,6 @@ export interface Root2 {
   ssh_url: string;
   clone_url: string;
   svn_url: string;
-  homepage?: string;
   size: number;
   stargazers_count: number;
   watchers_count: number;
@@ -79,6 +75,8 @@ export interface Root2 {
   open_issues: number;
   watchers: number;
   default_branch: string;
+  network_count: number;
+  subscribers_count: number;
 }
 
 export interface Owner {
