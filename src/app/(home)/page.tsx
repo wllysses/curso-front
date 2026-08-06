@@ -1,12 +1,6 @@
 import Link from "next/link";
-import {
-  CodeXmlIcon,
-  BracesIcon,
-  FileTextIcon,
-  MenuIcon,
-  Braces,
-} from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { CodeXmlIcon, BracesIcon, FileTextIcon, MenuIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Classrooms } from "@/components/classrooms";
 import { Hero } from "@/components/hero";
 import Image from "next/image";
@@ -20,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { SigninButton } from "@/components/signin-button";
 
 export default function Home() {
   const links = [
@@ -75,6 +70,8 @@ export default function Home() {
                     </Button>
                   </Link>
                 ))}
+
+                <SigninButton />
               </nav>
             </SheetContent>
           </Sheet>
