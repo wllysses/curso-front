@@ -61,10 +61,7 @@ export default function Home() {
               <nav className="flex flex-col gap-4 p-4 w-full">
                 {links.map((link, index) => (
                   <Link href={link.href} key={index} className="w-full">
-                    <Button
-                      className={"w-full justify-start"}
-                      variant="outline"
-                    >
+                    <Button className="w-full justify-start" variant="outline">
                       {link.icon}
                       {link.label}
                     </Button>

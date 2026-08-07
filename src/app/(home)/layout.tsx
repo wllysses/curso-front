@@ -11,7 +11,7 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
   const session = await getServerSession(nextAuthOptions);
 
   if (session) {
-    redirect("/menu");
+    redirect("/menu/" + session.user.id);
   }
 
   return <>{children}</>;
