@@ -91,6 +91,34 @@ export default function Home() {
         </section>
         <Classrooms />
         <Repositories />
+
+        <section className="w-full my-24">
+          <div className="text-center mb-4">
+            <h2 className="font-bold text-4xl">Teste seus Códigos</h2>
+            <p className="text-muted-foreground mt-2">
+              Utilize o editor abaixo para testar seus códigos e criar projetos
+              utilizando as linguagens HTML, CSS e Javascript.
+            </p>
+          </div>
+
+          <div className="mt-8 bg-white border rounded">
+            <iframe
+              src="https://www.fronteditor.dev/"
+              className="w-full h-150 border"
+            ></iframe>
+          </div>
+
+          <p className="text-center mt-4 text-sm">
+            Créditos: Editor criado por{" "}
+            <Link
+              href={"https://github.com/maykbrito"}
+              target="_blank"
+              className="font-bold hover:underline"
+            >
+              Mayk Brito
+            </Link>
+          </p>
+        </section>
       </main>
 
       <footer className="flex items-center justify-center flex-col gap-2 py-4 bg-primary text-black">
