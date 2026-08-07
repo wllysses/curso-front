@@ -1,5 +1,6 @@
 import { SignOutButton } from "@/components/signout-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -17,14 +18,22 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { prisma } from "@/lib/prisma";
+import { welcomeMessage } from "@/utils/welcome";
+import { FilePenLineIcon, NotebookPenIcon } from "lucide-react";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+export default async function MenuPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-export default async function MenuPage({ params: { slug } }: Props) {
+  // const users = await prisma.user.findMany({
+  //   where: {
+  //     role: "STUDENT",
+  //   },
+  // });
+
   const user = await prisma.user.findFirst({
     where: {
       id: slug,
@@ -35,17 +44,7 @@ export default async function MenuPage({ params: { slug } }: Props) {
     },
   });
 
-  function welcomeMessage() {
-    const currentHour = new Date().getHours();
-
-    if (currentHour >= 5 && currentHour < 12) {
-      return "Bom Dia";
-    } else if (currentHour >= 12 && currentHour < 18) {
-      return "Boa Tarde";
-    } else {
-      return "Bom Noite";
-    }
-  }
+  console.log(user);
 
   return (
     <div className="container mx-auto">
@@ -70,88 +69,145 @@ export default async function MenuPage({ params: { slug } }: Props) {
           </div>
         </Card>
 
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="text-lg">Visualizar Informações</CardTitle>
-            <CardDescription>
-              Acesse suas notas e frequências durante o curso
-            </CardDescription>
-          </CardHeader>
+        {user?.role === "TEACHER" && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="text-lg">Visualizar Estudantes</CardTitle>
+              <CardDescription>
+                Visualize e gerencie seus estudantes{" "}
+              </CardDescription>
+            </CardHeader>
 
-          <CardContent>
-            <Tabs defaultValue="notas" className={"flex-col gap-6"}>
-              <TabsList>
-                <TabsTrigger value={"notas"}>Notas</TabsTrigger>
-                <TabsTrigger value={"frequencias"}>Frequências</TabsTrigger>
-              </TabsList>
-              <TabsContent value={"notas"}>
-                <h3 className="font-semibold text-lg mb-2">Notas</h3>
-                {!user?.notas.length ? (
-                  <p>Nenhuma nota registrada.</p>
-                ) : (
-                  <div className="border rounded">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Período</TableHead>
-                          <TableHead>Tipo</TableHead>
-                          <TableHead>Nota</TableHead>
-                          <TableHead>Data da Avaliação</TableHead>
-                        </TableRow>
-                      </TableHeader>
+            <CardContent>
+              <div className="rounded border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead></TableHead>
+                      <TableHead>Nome</TableHead>
+                      <TableHead>E-mail</TableHead>
+                      <TableHead>Role</TableHead>
+                      <TableHead>Frequências</TableHead>
+                      <TableHead>Média</TableHead>
+                      <TableHead>Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
 
-                      <TableBody>
-                        {user?.notas.map((info) => (
-                          <TableRow key={info.id}>
-                            <TableCell>{info.periodo}</TableCell>
-                            <TableCell>{info.tipo}</TableCell>
-                            <TableCell>{info.nota}</TableCell>
-                            <TableCell>
-                              {new Date(info.dataAvaliacao).toLocaleDateString(
-                                "pt-BR",
-                              )}
-                            </TableCell>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        <Avatar>
+                          <AvatarFallback>{user.image![0]}</AvatarFallback>
+                          <AvatarImage src={user?.image as string} />
+                        </Avatar>
+                      </TableCell>
+                      <TableCell>Fulano de Tal</TableCell>
+                      <TableCell>fulano@email.com</TableCell>
+                      <TableCell>STUDENT</TableCell>
+                      <TableCell>83</TableCell>
+                      <TableCell>8.3</TableCell>
+                      <TableCell className="flex gap-2">
+                        <Button title="Registrar Frequência" size={"icon"}>
+                          <FilePenLineIcon />
+                        </Button>
+                        <Button title="Registrar Nota" size={"icon"}>
+                          <NotebookPenIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {user?.role === "STUDENT" && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="text-lg">Visualizar Informações</CardTitle>
+              <CardDescription>
+                Acesse suas notas e frequências durante o curso
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <Tabs defaultValue="notas" className={"flex-col gap-6"}>
+                <TabsList>
+                  <TabsTrigger value={"notas"}>Notas</TabsTrigger>
+                  <TabsTrigger value={"frequencias"}>Frequências</TabsTrigger>
+                </TabsList>
+                <TabsContent value={"notas"}>
+                  <h3 className="font-semibold text-lg mb-2">Notas</h3>
+                  {!user?.notas.length ? (
+                    <p>Nenhuma nota registrada.</p>
+                  ) : (
+                    <div className="border rounded">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Período</TableHead>
+                            <TableHead>Tipo</TableHead>
+                            <TableHead>Nota</TableHead>
+                            <TableHead>Data da Avaliação</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                )}
-              </TabsContent>
+                        </TableHeader>
 
-              <TabsContent value={"frequencias"}>
-                <h3 className="font-semibold text-lg mb-2">Frequências</h3>
-                {!user?.frequencias.length ? (
-                  <p>Nenhuma frequência registrada.</p>
-                ) : (
-                  <div className="border rounded">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Carga Horária</TableHead>
-                          <TableHead>Data</TableHead>
-                          <TableHead>Presença</TableHead>
-                        </TableRow>
-                      </TableHeader>
+                        <TableBody>
+                          {user?.notas.map((info) => (
+                            <TableRow key={info.id}>
+                              <TableCell>{info.periodo}</TableCell>
+                              <TableCell>{info.tipo}</TableCell>
+                              <TableCell>{info.nota}</TableCell>
+                              <TableCell>
+                                {new Date(
+                                  info.dataAvaliacao,
+                                ).toLocaleDateString("pt-BR")}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  )}
+                </TabsContent>
 
-                      <TableBody>
-                        {user?.frequencias.map((info) => (
-                          <TableRow key={info.id}>
-                            <TableCell>{info.cargaHoraria}</TableCell>
-                            <TableCell>
-                              {new Date(info.data).toLocaleDateString("pt-BR")}
-                            </TableCell>
-                            <TableCell>{info.presenca}</TableCell>
+                <TabsContent value={"frequencias"}>
+                  <h3 className="font-semibold text-lg mb-2">Frequências</h3>
+                  {!user?.frequencias.length ? (
+                    <p>Nenhuma frequência registrada.</p>
+                  ) : (
+                    <div className="border rounded">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Carga Horária</TableHead>
+                            <TableHead>Data</TableHead>
+                            <TableHead>Presença</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                )}
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+                        </TableHeader>
+
+                        <TableBody>
+                          {user?.frequencias.map((info) => (
+                            <TableRow key={info.id}>
+                              <TableCell>{info.cargaHoraria}</TableCell>
+                              <TableCell>
+                                {new Date(info.data).toLocaleDateString(
+                                  "pt-BR",
+                                )}
+                              </TableCell>
+                              <TableCell>{info.presenca}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        )}
       </main>
     </div>
   );
