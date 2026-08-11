@@ -6,6 +6,6 @@ export function welcomeMessage() {
   } else if (currentHour >= 12 && currentHour < 18) {
     return "Boa Tarde";
   } else {
-    return "Bom Noite";
+    return "Boa Noite";
   }
 }
