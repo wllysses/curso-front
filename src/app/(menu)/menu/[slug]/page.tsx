@@ -19,7 +19,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { prisma } from "@/lib/prisma";
 import { welcomeMessage } from "@/utils/welcome";
-import { FilePenLineIcon, NotebookPenIcon } from "lucide-react";
+import { FilePenLineIcon } from "lucide-react";
+import { FrequenciesModal } from "./_components/frequencies-modal";
 
 export default async function MenuPage({
   params,
@@ -28,11 +29,15 @@ export default async function MenuPage({
 }) {
   const { slug } = await params;
 
-  // const users = await prisma.user.findMany({
-  //   where: {
-  //     role: "STUDENT",
-  //   },
-  // });
+  const users = await prisma.user.findMany({
+    where: {
+      role: "STUDENT",
+    },
+    include: {
+      frequencias: true,
+      notas: true,
+    },
+  });
 
   const user = await prisma.user.findFirst({
     where: {
@@ -44,7 +49,7 @@ export default async function MenuPage({
     },
   });
 
-  console.log(user);
+  //console.log(user);
 
   return (
     <div className="container mx-auto">
@@ -94,27 +99,27 @@ export default async function MenuPage({
                   </TableHeader>
 
                   <TableBody>
-                    <TableRow>
-                      <TableCell>
-                        <Avatar>
-                          <AvatarFallback>{user.image![0]}</AvatarFallback>
-                          <AvatarImage src={user?.image as string} />
-                        </Avatar>
-                      </TableCell>
-                      <TableCell>Fulano de Tal</TableCell>
-                      <TableCell>fulano@email.com</TableCell>
-                      <TableCell>STUDENT</TableCell>
-                      <TableCell>83</TableCell>
-                      <TableCell>8.3</TableCell>
-                      <TableCell className="flex gap-2">
-                        <Button title="Registrar Frequência" size={"icon"}>
-                          <FilePenLineIcon />
-                        </Button>
-                        <Button title="Registrar Nota" size={"icon"}>
-                          <NotebookPenIcon />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+                    {users.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell>
+                          <Avatar>
+                            <AvatarFallback>{user.image![0]}</AvatarFallback>
+                            <AvatarImage src={user?.image as string} />
+                          </Avatar>
+                        </TableCell>
+                        <TableCell>{user.name}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>{user.role}</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell>-</TableCell>
+                        <TableCell className="flex gap-2">
+                          <Button title="Registrar Frequência" size={"icon"}>
+                            <FilePenLineIcon />
+                          </Button>
+                          <FrequenciesModal userId={user.id!} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </div>
