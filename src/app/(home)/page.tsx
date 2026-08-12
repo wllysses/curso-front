@@ -34,11 +34,11 @@ export default function Home() {
       href: "#codigos",
       icon: <BracesIcon />,
     },
-    {
-      label: "Criar/Testar Código",
-      href: "#criar",
-      icon: <CodeIcon />,
-    },
+    // {
+    //   label: "Criar/Testar Código",
+    //   href: "#criar",
+    //   icon: <CodeIcon />,
+    // },
   ];
 
   return (
@@ -99,7 +99,7 @@ export default function Home() {
         <Classrooms />
         <Repositories />
 
-        <section className="w-full my-24" id="criar">
+        {/* <section className="w-full my-24" id="criar">
           <div className="text-center mb-4">
             <h2 className="font-bold text-4xl">Teste seus Códigos</h2>
             <p className="text-muted-foreground mt-2">
@@ -113,9 +113,9 @@ export default function Home() {
               src="https://www.livecodes.io/?embed=true"
               className="w-full h-150 border"
             ></iframe>
-          </div>
+          </div> */}
 
-          {/* <p className="text-center mt-4 text-sm">
+        {/* <p className="text-center mt-4 text-sm">
             Créditos: Editor criado por{" "}
             <Link
               href={"https://github.com/maykbrito"}
@@ -125,7 +125,7 @@ export default function Home() {
               Mayk Brito
             </Link>
           </p> */}
-        </section>
+        {/* </section> */}
       </main>
 
       <footer className="flex items-center justify-center flex-col gap-2 py-4 bg-primary text-black">
