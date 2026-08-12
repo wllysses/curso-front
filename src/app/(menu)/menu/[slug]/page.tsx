@@ -1,6 +1,5 @@
 import { SignOutButton } from "@/components/signout-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,8 +18,10 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { prisma } from "@/lib/prisma";
 import { welcomeMessage } from "@/utils/welcome";
-import { FilePenLineIcon } from "lucide-react";
 import { FrequenciesModal } from "./_components/frequencies-modal";
+import { NotesModal } from "./_components/notes-modal";
+import { calculateStudentAverage } from "@/utils/average";
+import { calculateStudentFrequencies } from "@/utils/frequency";
 
 export default async function MenuPage({
   params,
@@ -49,8 +50,6 @@ export default async function MenuPage({
     },
   });
 
-  //console.log(user);
-
   return (
     <div className="container mx-auto">
       <header className="flex pt-2 justify-end">
@@ -61,15 +60,20 @@ export default async function MenuPage({
         <Card className="p-4">
           <div className="flex flex-col gap-2">
             <h1 className="font-bold">{welcomeMessage()},</h1>
-            <div className="flex items-center gap-2">
-              <Avatar>
-                <AvatarFallback>{user?.name![0]}</AvatarFallback>
-                <AvatarImage src={user?.image as string} />
-              </Avatar>
-              <div>
-                <h2 className="font-semibold">{user?.name}</h2>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
+            <div className="flex justify-between">
+              <div className="flex items-center gap-2">
+                <Avatar>
+                  <AvatarFallback>{user?.name![0]}</AvatarFallback>
+                  <AvatarImage src={user?.image as string} />
+                </Avatar>
+                <div>
+                  <h2 className="font-semibold">{user?.name}</h2>
+                  <p className="text-xs text-muted-foreground">{user?.email}</p>
+                </div>
               </div>
+              <p className="font-bold text-primary">
+                {user?.role === "STUDENT" ? "Estudante" : "Professor"}
+              </p>
             </div>
           </div>
         </Card>
@@ -79,7 +83,7 @@ export default async function MenuPage({
             <CardHeader>
               <CardTitle className="text-lg">Visualizar Estudantes</CardTitle>
               <CardDescription>
-                Visualize e gerencie seus estudantes{" "}
+                Visualize e gerencie seus estudantes.
               </CardDescription>
             </CardHeader>
 
@@ -92,7 +96,8 @@ export default async function MenuPage({
                       <TableHead>Nome</TableHead>
                       <TableHead>E-mail</TableHead>
                       <TableHead>Role</TableHead>
-                      <TableHead>Frequências</TableHead>
+                      <TableHead>Presenças</TableHead>
+                      <TableHead>Faltas</TableHead>
                       <TableHead>Média</TableHead>
                       <TableHead>Ações</TableHead>
                     </TableRow>
@@ -103,19 +108,25 @@ export default async function MenuPage({
                       <TableRow key={user.id}>
                         <TableCell>
                           <Avatar>
-                            <AvatarFallback>{user.image![0]}</AvatarFallback>
+                            <AvatarFallback>{user.name![0]}</AvatarFallback>
                             <AvatarImage src={user?.image as string} />
                           </Avatar>
                         </TableCell>
                         <TableCell>{user.name}</TableCell>
                         <TableCell>{user.email}</TableCell>
                         <TableCell>{user.role}</TableCell>
-                        <TableCell>-</TableCell>
-                        <TableCell>-</TableCell>
+                        <TableCell>
+                          {calculateStudentFrequencies(user.frequencias, true)}
+                        </TableCell>
+                        <TableCell>
+                          {" "}
+                          {calculateStudentFrequencies(user.frequencias, false)}
+                        </TableCell>
+                        <TableCell>
+                          {calculateStudentAverage(user.notas)}
+                        </TableCell>
                         <TableCell className="flex gap-2">
-                          <Button title="Registrar Frequência" size={"icon"}>
-                            <FilePenLineIcon />
-                          </Button>
+                          <NotesModal userId={user.id!} />
                           <FrequenciesModal userId={user.id!} />
                         </TableCell>
                       </TableRow>
@@ -132,7 +143,7 @@ export default async function MenuPage({
             <CardHeader>
               <CardTitle className="text-lg">Visualizar Informações</CardTitle>
               <CardDescription>
-                Acesse suas notas e frequências durante o curso
+                Acesse suas notas e frequências durante o curso.
               </CardDescription>
             </CardHeader>
 
@@ -201,7 +212,9 @@ export default async function MenuPage({
                                   "pt-BR",
                                 )}
                               </TableCell>
-                              <TableCell>{info.presenca}</TableCell>
+                              <TableCell>
+                                {info.presenca ? "Sim" : "Não"}
+                              </TableCell>
                             </TableRow>
                           ))}
                         </TableBody>

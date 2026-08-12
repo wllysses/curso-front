@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { registerFrequency } from "@/actions/register-frequency";
+import { PencilLineIcon } from "lucide-react";
+import { registerNote } from "@/actions/register-note";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,26 +23,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { NotebookPenIcon } from "lucide-react";
 
-interface FrequenciesModalProps {
+interface NotesModalProps {
   userId: string;
 }
 
-export function FrequenciesModal({ userId }: FrequenciesModalProps) {
+export function NotesModal({ userId }: NotesModalProps) {
+  const [note, setNote] = useState("");
   const [date, setDate] = useState("");
-  const [cargaHoraria, setCargaHoraria] = useState<string | null>("");
-  const [presenca, setPresenca] = useState<string | null>("");
+  const [avaliationType, setAvaliationType] = useState<string | null>("");
+  const [period, setPeriod] = useState<string | null>("");
   const [loading, setLoading] = useState<boolean | null>(null);
 
   async function handleRegisterFrequency() {
     try {
       setLoading(true);
 
-      const response = await registerFrequency({
-        date,
-        cargaHoraria: Number(cargaHoraria),
-        presenca: presenca === "Sim" ? true : false,
+      const response = await registerNote({
+        nota: note,
+        dataAvaliacao: date,
+        tipo: avaliationType!,
+        periodo: period!,
         userId,
       });
 
@@ -51,7 +53,7 @@ export function FrequenciesModal({ userId }: FrequenciesModalProps) {
         return;
       }
 
-      alert("Frequência registrada com sucesso!");
+      alert("Nota registrada com sucesso!");
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -64,16 +66,26 @@ export function FrequenciesModal({ userId }: FrequenciesModalProps) {
     <Dialog>
       <DialogTrigger
         render={
-          <Button title="Registrar Frequência" size={"icon"}>
-            <NotebookPenIcon />
+          <Button title="Registrar Nota" size={"icon"}>
+            <PencilLineIcon />
           </Button>
         }
       />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Registrar Frequência</DialogTitle>
+          <DialogTitle>Registrar Nota</DialogTitle>
           <DialogDescription>Preencha todas as informações.</DialogDescription>
         </DialogHeader>
+        <div className="space-y-2">
+          <Label htmlFor="note">Nota</Label>
+          <Input
+            id="note"
+            name="note"
+            type="text"
+            maxLength={3}
+            onChange={(e) => setNote(e.target.value)}
+          />
+        </div>
         <div className="space-y-2">
           <Label htmlFor="frequencyDate">Data</Label>
           <Input
@@ -85,27 +97,29 @@ export function FrequenciesModal({ userId }: FrequenciesModalProps) {
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-2 w-full">
-            <Label htmlFor="username-1">Carga Horária</Label>
-            <Select onValueChange={setCargaHoraria}>
+            <Label htmlFor="username-1">Tipo</Label>
+            <Select onValueChange={setAvaliationType}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione a carga horária" />
+                <SelectValue placeholder="Selecione a o tipo" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem></SelectItem>
-                <SelectItem value="3">3</SelectItem>
-                <SelectItem value="0">0</SelectItem>
+                <SelectItem value="teorica">Teórica</SelectItem>
+                <SelectItem value="pratica">Prática</SelectItem>
+                <SelectItem value="seminario">Seminário</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="username-1">Presença</Label>
-            <Select onValueChange={setPresenca}>
+            <Label htmlFor="username-1">Período</Label>
+            <Select onValueChange={setPeriod}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Marque a presença" />
+                <SelectValue placeholder="Marque o período" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Sim">Sim</SelectItem>
-                <SelectItem value="Não">Não</SelectItem>
+                <SelectItem value="1">1</SelectItem>
+                <SelectItem value="2">2</SelectItem>
+                <SelectItem value="3">3</SelectItem>
+                <SelectItem value="4">4</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -114,7 +128,7 @@ export function FrequenciesModal({ userId }: FrequenciesModalProps) {
           <DialogClose render={<Button variant="outline">Cancelar</Button>} />
           <Button
             onClick={handleRegisterFrequency}
-            disabled={!date || !cargaHoraria || !presenca || loading!}
+            disabled={!date || !avaliationType || !period || loading!}
             className="disabled:cursor-not-allowed"
           >
             Salvar

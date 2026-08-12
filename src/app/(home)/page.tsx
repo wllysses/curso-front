@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { CodeXmlIcon, BracesIcon, FileTextIcon, MenuIcon } from "lucide-react";
+import {
+  CodeXmlIcon,
+  BracesIcon,
+  FileTextIcon,
+  MenuIcon,
+  CodeIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Classrooms } from "@/components/classrooms";
 import { Hero } from "@/components/hero";
@@ -28,10 +34,11 @@ export default function Home() {
       href: "#codigos",
       icon: <BracesIcon />,
     },
-    // {
-    //   label: "Contatos",
-    //   href: "#contatos",
-    // },
+    {
+      label: "Criar/Testar Código",
+      href: "#criar",
+      icon: <CodeIcon />,
+    },
   ];
 
   return (
@@ -86,13 +93,13 @@ export default function Home() {
           <Image
             src={illustration}
             alt="Illustration"
-            className="w-full rounded object-cover [mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)]"
+            className="w-full rounded object-cover mask-[linear-gradient(to_bottom,black_50%,transparent_100%) [-webkit-mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)]"
           />
         </section>
         <Classrooms />
         <Repositories />
 
-        <section className="w-full my-24">
+        <section className="w-full my-24" id="criar">
           <div className="text-center mb-4">
             <h2 className="font-bold text-4xl">Teste seus Códigos</h2>
             <p className="text-muted-foreground mt-2">
@@ -103,12 +110,12 @@ export default function Home() {
 
           <div className="mt-8 bg-white border rounded">
             <iframe
-              src="https://www.fronteditor.dev/"
+              src="https://www.livecodes.io/?embed=true"
               className="w-full h-150 border"
             ></iframe>
           </div>
 
-          <p className="text-center mt-4 text-sm">
+          {/* <p className="text-center mt-4 text-sm">
             Créditos: Editor criado por{" "}
             <Link
               href={"https://github.com/maykbrito"}
@@ -117,7 +124,7 @@ export default function Home() {
             >
               Mayk Brito
             </Link>
-          </p>
+          </p> */}
         </section>
       </main>
 
