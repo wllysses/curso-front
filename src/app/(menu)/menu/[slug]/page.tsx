@@ -22,6 +22,7 @@ import { FrequenciesModal } from "./_components/frequencies-modal";
 import { NotesModal } from "./_components/notes-modal";
 import { calculateStudentAverage } from "@/utils/average";
 import { calculateStudentFrequencies } from "@/utils/frequency";
+import { UserPlus, UserX } from "lucide-react";
 
 export default async function MenuPage({
   params,
@@ -189,6 +190,26 @@ export default async function MenuPage({
                 </TabsContent>
 
                 <TabsContent value={"frequencias"}>
+                  <div className="flex gap-4 items-center justify-end">
+                    <Card className="max-w-37.5 w-full">
+                      <CardHeader>
+                        <UserPlus />
+                        <CardTitle>Presenças</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-green-500 font-bold text-2xl">
+                        {calculateStudentFrequencies(user.frequencias, true)}
+                      </CardContent>
+                    </Card>
+                    <Card className="max-w-37.5 w-full">
+                      <CardHeader>
+                        <UserX />
+                        <CardTitle>Faltas</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-red-500 font-bold text-2xl">
+                        {calculateStudentFrequencies(user.frequencias, false)}
+                      </CardContent>
+                    </Card>
+                  </div>
                   <h3 className="font-semibold text-lg mb-2">Frequências</h3>
                   {!user?.frequencias.length ? (
                     <p>Nenhuma frequência registrada.</p>
