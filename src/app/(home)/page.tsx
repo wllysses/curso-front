@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  CodeXmlIcon,
-  BracesIcon,
-  FileTextIcon,
-  MenuIcon,
-  CodeIcon,
-} from "lucide-react";
+import { CodeXmlIcon, BracesIcon, FileTextIcon, MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Classrooms } from "@/components/classrooms";
 import { Hero } from "@/components/hero";
